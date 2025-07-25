@@ -1,0 +1,275 @@
+Complete Website Development Prompt - AmazonPro Marketing Agency
+🎯 Project Overview
+Create a high-conversion marketing agency website for "AmazonPro" - a premium Amazon PPC and growth strategy company. Build a modern, animated, responsive React application with Redux state management and a clean Express backend for email functionality.
+
+🛠️ Technical Stack & Structure
+Frontend Stack
+Framework: React(Redux) + Vite(Framework)
+Language: JavaScript (no TypeScript)
+Styling: Tailwind CSS with custom animations
+Animations: Framer Motion for 3D effects and smooth transitions
+State Management: Redux Toolkit
+API Calls: TanStack React Query
+Routing: Wouter (lightweight router)
+Icons: Lucide React
+Form Handling: Redux with validation
+Backend Stack
+Framework: Express.js
+Email Service: Nodemailer with SMTP
+Validation: Express-validator
+Middleware: CORS, custom validation
+Structure: Organized routes, models, middleware
+📁 Required Directory Structure
+Market/
+├── client/                    (React + Vite Frontend)
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Layout.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── ContactForm.jsx
+│   │   │   └── sections/
+│   │   │       ├── Hero.jsx
+│   │   │       ├── AboutSection.jsx
+│   │   │       ├── ServicesSection.jsx
+│   │   │       ├── Stats.jsx
+│   │   │       ├── TestimonialsSection.jsx
+│   │   │       └── CTASection.jsx
+│   │   ├── pages/
+│   │   │   ├── Home.jsx
+│   │   │   ├── About.jsx
+│   │   │   ├── Services.jsx
+│   │   │   ├── Team.jsx
+│   │   │   ├── Testimonials.jsx
+│   │   │   ├── Contact.jsx
+│   │   │   └── NotFound.jsx
+│   │   ├── hooks/
+│   │   │   └── useScrollToTop.js
+│   │   ├── store/
+│   │   │   ├── contactSlice.js
+│   │   │   └── newsletterSlice.js
+│   │   ├── lib/
+│   │   │   ├── store.js
+│   │   │   └── queryClient.js
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── public/
+│   │   └── vite.svg
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── index.html
+│   ├── eslint.config.js
+│   └── README.md
+├── server/                   (Express Backend)
+│   ├── routes/
+│   │   ├── contact.js
+│   │   └── newsletter.js
+│   ├── models/
+│   │   └── emailTemplates.js
+│   ├── middleware/
+│   │   ├── cors.js
+│   │   └── validation.js
+│   ├── index.js
+│   ├── package.json
+│   └── .env
+└── .gitignore
+🎨 Design Requirements
+Brand Identity
+Primary Color: hsl(220, 70%, 50%) (Professional Blue)
+Accent Color: hsl(240, 80%, 60%) (Vibrant Blue)
+Typography: Inter font family (Google Fonts)
+Logo: "AmazonPro" with gradient text effect
+Style: Modern, professional, high-conversion focused
+Visual Effects & Animations
+Background Elements: Floating geometric shapes and particles
+3D Effects: Service cards with flip animations on hover
+Gradient Animations: Continuously shifting color backgrounds
+Interactive Elements: Scale, glow, and movement on hover
+Page Transitions: Smooth fade-in animations with staggered delays
+Scroll Effects: Elements animate as they enter viewport
+📱 Responsive Design Specifications
+Mobile-First: Breakpoints at sm, md, lg, xl
+Touch-Friendly: Proper button sizes and spacing
+Adaptive Typography: 3xl mobile to 7xl desktop scaling
+Navigation: Collapsible mobile menu with smooth animations
+Layout: Grid systems that adapt across all screen sizes
+📄 Page Structure & Content
+1. Home Page (/)
+Hero Section:
+
+Animated background with floating particles
+Headline: "Scale Your Amazon Empire"
+Subtext about AI-powered strategies and $100M+ revenue
+Two CTA buttons: "Start Free Audit" and "Watch Demo"
+Success metrics grid: 500+ clients, $100M+ revenue, 250% ROI, 5★ rating
+Additional Sections:
+
+About preview with company introduction
+Services overview with 3D flip cards
+Animated statistics counter
+Client testimonials carousel
+Final CTA with prominent buttons
+2. Services Page (/services)
+Six Main Services:
+
+Amazon PPC Management - Campaign optimization ($2,500/month)
+Listing Optimization - SEO improvements ($1,500/month)
+Brand Growth Strategy - Market expansion ($3,000/month)
+Performance Analytics - Data insights ($1,000/month)
+Brand Registry & IP - Protection services ($800/month)
+Amazon DSP Advertising - Display advertising ($2,000/month)
+Each service card includes:
+
+Icon, title, description
+Feature checklist with green checkmarks
+Pricing information
+"Learn More" CTA button
+3. Team Page (/team)
+Six Team Members:
+
+Alex Rodriguez - Founder & CEO
+Sarah Chen - Head of PPC Strategy
+Marcus Johnson - Senior Account Manager
+Emma Thompson - Listing Optimization Specialist
+David Park - DSP Campaign Manager
+Lisa Wang - Data Analytics Lead
+Each profile features:
+
+Professional headshot (Unsplash images)
+Bio and specialties
+Social media links (LinkedIn, Twitter, Email)
+Animated hover effects
+4. About Page (/about)
+Company founding story (2018)
+Core values with animated icons
+Success metrics and achievements
+Mission statement section
+5. Testimonials Page (/testimonials)
+Interactive testimonial showcase:
+
+Client success stories with specific metrics
+5-star rating displays
+Company information and results
+Interactive selection interface
+6. Contact Page (/contact)
+Redux-powered contact form
+Company contact information
+Business hours and location
+Success/error state handling
+🔧 Technical Implementation
+Frontend Configuration (package.json)
+{
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "framer-motion": "^10.16.4",
+    "lucide-react": "^0.263.1",
+    "wouter": "^2.12.1",
+    "@tanstack/react-query": "^4.32.6",
+    "@reduxjs/toolkit": "^1.9.5",
+    "react-redux": "^8.1.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.3",
+    "vite": "^4.4.5",
+    "tailwindcss": "^3.3.3",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.27"
+  }
+}
+Backend Configuration (package.json)
+{
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "nodemailer": "^6.9.4",
+    "dotenv": "^16.3.1",
+    "express-validator": "^7.0.1"
+  }
+}
+Key Features to Implement
+Redux State Management
+Contact Form: Form data, submission states, error handling
+Newsletter: Email subscription with validation
+Global State: User interactions and UI states
+Email Integration
+Contact Form: Professional HTML email templates
+Auto-Reply: Welcome emails to customers
+Newsletter: Subscription confirmation emails
+Validation: Server-side input validation
+Animation System
+Scroll-to-Top: Automatic scroll on page navigation
+3D Cards: Service cards flip on hover
+Floating Elements: Continuous background animations
+Interactive Buttons: Scale and glow effects
+Loading States: Submit button animations
+Responsive Features
+Mobile Navigation: Hamburger menu with smooth transitions
+Touch Optimization: Proper tap targets and gestures
+Image Optimization: Responsive images with proper scaling
+Performance: Code splitting and lazy loading
+🌐 Backend Architecture
+Route Structure
+/contact - Form submission with validation
+/newsletter - Email subscription handling
+/health - Server status check
+Email Templates
+Professional HTML designs
+Company branding
+Auto-reply functionality
+Newsletter welcome emails
+Validation & Security
+Input sanitization
+Email validation
+CORS configuration
+Error handling middleware
+📝 Content Guidelines
+Tone & Messaging
+Professional yet approachable
+Results-focused with specific metrics
+Confident and authoritative
+Client success oriented
+Key Metrics to Include
+500+ clients helped
+$100M+ revenue generated
+250% average ROI increase
+340% sales growth examples
+18% ACoS reduction cases
+Call-to-Actions
+"Start Free Audit"
+"Schedule a Call"
+"Get Started"
+"Learn More"
+"Schedule Free Consultation"
+🚀 Development Setup
+Installation Steps
+Create Market directory with client/server folders
+Initialize Vite project in client folder
+Set up Express server in server folder
+Install all dependencies
+Configure environment variables
+Set up SMTP email credentials
+Environment Variables (.env)
+PORT=5000
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASS=your-app-password
+FROM_EMAIL=your-email@gmail.com
+TO_EMAIL=contact@amazonpro.com
+Development Commands
+# Client (port 3000)
+cd client && npm run dev
+# Server (port 5000)
+cd server && npm run dev
+🎯 Success Criteria
+Fully responsive across all devices
+Smooth animations and transitions
+Working contact form with email delivery
+Professional design matching brand guidelines
+Fast loading times and optimized performance
+Clean, maintainable code structure
+Error handling and validation
+Mobile-first responsive design
+This comprehensive prompt will create a professional, high-converting marketing agency website with modern animations, clean architecture, and robust functionality using React + Vite with Redux state management and an organized Express backend.
