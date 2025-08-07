@@ -1,23 +1,26 @@
 import { CheckCircle, Target, Users, Award } from "lucide-react";
 import { motion } from "framer-motion";
+import aboutImage from "../assets/images/about.jpg";
 
 export default function About() {
   const values = [
     {
       icon: Target,
-      title: "Results-Driven",
+      title: "Innovation-Driven",
       description:
-        "Every strategy is designed with measurable ROI and growth metrics in mind",
+        "We embrace blockchain technology to deliver a secure, transparent, and futuristic NFT marketplace experience.",
     },
     {
       icon: Users,
-      title: "Client-Focused",
-      description: "Your success is our success. We grow when you grow",
+      title: "Community-Focused",
+      description:
+        "Our platform thrives on a vibrant community of creators, collectors, and bidders who bring NFTs to life.",
     },
     {
       icon: Award,
-      title: "Excellence",
-      description: "We maintain the highest standards in everything we do",
+      title: "Trusted Marketplace",
+      description:
+        "We ensure every NFT transaction is safe, verified, and built on top of decentralized blockchain standards.",
     },
   ];
 
@@ -28,44 +31,11 @@ export default function About() {
         <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-transparent to-yellow-400/10 animate-pulse"></div>
 
-        {/* Modern Geometric Elements */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 left-20 w-26 h-26 border border-purple-500 rotate-45 animate-spin"></div>
           <div className="absolute bottom-20 right-20 w-20 h-20 border border-yellow-400 rotate-12 animate-bounce"></div>
           <div className="absolute top-1/2 left-1/4 w-15 h-15 bg-purple-500 rounded-full animate-pulse"></div>
         </div>
-        <div
-          className="shape-3d shape-pyramid top-20 left-15 animate-floating3d opacity-14"
-          style={{ animationDelay: "0s" }}
-        ></div>
-        <div
-          className="shape-3d shape-cube top-1/4 right-15 animate-spiral opacity-16"
-          style={{ animationDelay: "1.3s" }}
-        ></div>
-        <div
-          className="shape-3d shape-sphere bottom-1/3 left-1/4 animate-rotate3d opacity-13"
-          style={{ animationDelay: "2.1s" }}
-        ></div>
-        <div
-          className="shape-3d shape-pyramid top-1/2 right-1/3 animate-orbit opacity-17"
-          style={{ animationDelay: "0.6s" }}
-        ></div>
-        <div
-          className="shape-3d shape-cube bottom-15 left-15 animate-morphing opacity-12"
-          style={{ animationDelay: "3.4s" }}
-        ></div>
-        <div
-          className="shape-3d shape-sphere top-45 left-1/2 animate-floating3d opacity-15"
-          style={{ animationDelay: "1.9s" }}
-        ></div>
-        <div
-          className="shape-3d shape-pyramid bottom-20 right-20 animate-spiral opacity-18"
-          style={{ animationDelay: "2.7s" }}
-        ></div>
-        <div
-          className="shape-3d shape-cube top-65 right-1/4 animate-rotate3d opacity-11"
-          style={{ animationDelay: "0.3s" }}
-        ></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -88,15 +58,16 @@ export default function About() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl mb-12 text-gray-300 font-medium max-w-4xl mx-auto leading-relaxed">
-              Founded in 2020, we've revolutionized digital presence for 1000+
-              brands, creating viral campaigns that generated 500M+ impressions
-              worldwide.
+              Empowering creators and collectors with a next-generation NFT
+              marketplace where you can mint, sell, and bid on unique digital
+              assets with full transparency and blockchain security.
             </p>
           </motion.div>
         </div>
       </section>
-      {/* Company Story */}
-      <section className="py-20 bg-white">
+
+      {/* Our Story */}
+      <section className="py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -106,69 +77,73 @@ export default function About() {
               viewport={{ once: true }}
             >
               <h2 className="text-4xl font-bold mb-6 text-slate-900">
-                Our Story
+                Our Journey
               </h2>
               <p className="text-lg text-slate-600 mb-6">
-                AmazonPro was born from the frustration of watching talented
-                entrepreneurs struggle with Amazon's complex advertising
-                ecosystem. Our founder, Alex Rodriguez, spent 8 years at Amazon
-                leading teams that generated over $50M in marketplace revenue.
+                NFTMarket was born out of a passion for empowering digital
+                creators and collectors worldwide. We envisioned a platform
+                where artists could mint their work, enthusiasts could trade
+                rare digital assets, and everyone could experience the
+                excitement of live NFT auctions.
               </p>
               <p className="text-lg text-slate-600 mb-6">
-                In 2018, he left Amazon to democratize access to the strategies
-                and insights that only the biggest brands had access to. Today,
-                we've helped generate over $100M in additional revenue for our
-                clients.
+                Since our launch, we've connected thousands of creators and
+                collectors globally, enabling them to build value, ownership,
+                and community around unique digital assets.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center">
                   <CheckCircle className="w-6 h-6 text-green-500 mr-3" />
                   <span className="text-slate-700">
-                    500+ Successful Client Partnerships
+                    1000+ NFTs successfully traded
                   </span>
                 </div>
                 <div className="flex items-center">
                   <CheckCircle className="w-6 h-6 text-green-500 mr-3" />
                   <span className="text-slate-700">
-                    $100M+ in Revenue Generated
+                    Global network of creators and collectors
                   </span>
                 </div>
                 <div className="flex items-center">
                   <CheckCircle className="w-6 h-6 text-green-500 mr-3" />
                   <span className="text-slate-700">
-                    6 Years of Market Leadership
+                    Decentralized, secure, and trustless transactions
                   </span>
                 </div>
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, x: 40, y: -20 }} 
+              whileInView={{
+                opacity: 1,
+                x: 0, // Horizontal fade-in
+                y: [0, 20, 0, -20, 0], // Vertical oscillation pattern
+              }}
+              transition={{
+                x: { duration: 0.8 }, // Horizontal animation duration
+                y: {
+                  duration: 4, // Vertical animation duration (slower)
+                  repeat: Infinity, // Loop forever
+                  ease: "easeInOut", // Smooth movement
+                },
+              }}
               viewport={{ once: true }}
             >
               <img
-                src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
-                alt="Team collaboration"
-                className="rounded-2xl shadow-2xl"
+                alt="NFT Marketplace"
+                src={aboutImage}
+                className="rounded-2xl shadow-2xl bg-none w-full h-full object-cover"
               />
             </motion.div>
           </div>
         </div>
       </section>
+
       {/* Core Values */}
-      <section className="py-20 bg-gray-900 relative overflow-hidden">
-        {/* Premium Background Elements */}
+      <section className="py-10 bg-gray-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900/10 to-gray-900"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-purple-600/5 via-transparent to-yellow-400/5 animate-pulse"></div>
-
-        {/* Geometric Background Elements */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-20 w-24 h-24 border border-purple-500 rotate-45 animate-spin"></div>
-          <div className="absolute bottom-20 right-20 w-16 h-16 border border-yellow-400 rotate-12 animate-bounce"></div>
-          <div className="absolute top-1/2 left-1/4 w-12 h-12 bg-purple-500 rounded-full animate-pulse"></div>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -178,12 +153,16 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              Our <span className="gradient-text">Core Values</span>
+            <h2 className="text-4xl font-semibold text-white mb-8 text-center">
+              Our {"  "}
+              <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-400 bg-clip-text text-transparent">
+                Core Values
+              </span>
             </h2>
+
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              The principles that guide every decision we make and every
-              strategy we implement
+              These principles drive every NFT we help create, sell, and auction
+              to the world.
             </p>
           </motion.div>
 
@@ -214,8 +193,9 @@ export default function About() {
           </div>
         </div>
       </section>
+
       {/* Mission Statement */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-10 bg-gray-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -230,21 +210,20 @@ export default function About() {
               </span>
             </h2>
             <p className="text-xl text-gray-300 leading-relaxed mb-8">
-              "To democratize access to cutting-edge digital marketing
-              strategies, empowering ambitious brands to build viral presence,
-              sustainable growth, and lasting value for their audiences and
-              communities."
+              "To build a decentralized NFT ecosystem that empowers creators,
+              connects collectors, and revolutionizes the way digital assets are
+              bought, sold, and experienced worldwide."
             </p>
-            <div className="bg-gradient-to-r from-primary-600 to-accent-600 text-white p-8 rounded-2xl">
+            <div className="bg-gradient-to-r from-purple-600 to-yellow-500 text-white p-8 rounded-2xl">
               <h3 className="text-2xl font-bold mb-4">
-                Ready to Join Our Success Stories?
+                Be Part of the Future of Digital Ownership
               </h3>
               <p className="text-blue-100 mb-6">
-                Let's discuss how we can help you achieve your Amazon business
-                goals
+                Join our growing NFT community to create, collect, and bid on
+                exclusive digital assets.
               </p>
               <button className="bg-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors text-[#010102]">
-                Schedule a Consultation
+                Start Your NFT Journey
               </button>
             </div>
           </motion.div>

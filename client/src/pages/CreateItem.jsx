@@ -4,24 +4,23 @@ import "./CreateItem.css";
 import ProfileCard from "../components/ProfileCard";
 import { useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import { useAuth } from "../context/AuthContext";
+import { buildApiUrl } from "../config/api";
 
 function CreateItem() {
-  // const [profileData, setProfileData] = useState({
-  //   name: "Morgan Wright",
-  //   role: "Creative NFTs Designer",
-  //   bio: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos distinctio labore.",
-  //   shortId: "Xjo03s-osi6732...",
-  //   bgImage: "https://i.ibb.co/q9XMGq3/bg.jpg",
-  //   profileImage: "https://i.ibb.co/JpmYDNf/profile.jpg",
-  // });
+  const { user } = useAuth();
   const [itemName, setItemName] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [royalties, setRoyalties] = useState("");
-  const [size, setSize] = useState("");
+  const [width, setWidth] = useState("");
+  const [height, setHeight] = useState("");
   const [copies, setCopies] = useState(1);
+  const [totalCopies, setTotalCopies] = useState(1);
   const [file, setFile] = useState(null);
+
   const handleFileChange = async (e) => {
     setFile(e.target.files[0]);
   };
@@ -29,15 +28,38 @@ function CreateItem() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if user is logged in
+    if (!user) {
+      toast.error("Please log in to create NFTs");
+      return;
+    }
+
     // Basic validation
     if (!file) {
-      alert("Please upload a file");
+      toast.error("Please upload a file");
       return;
     }
-    if (!itemName || !category || !price) {
-      alert("Please fill in all required fields");
+    if (!itemName || !category) {
+      toast.error("Please fill in item name and category");
       return;
     }
+
+    // Validate price
+    const parsedPrice = parseFloat(price);
+    const parsedWidth = parseInt(width);
+    const parsedHeight = parseInt(height);
+    if (
+      isNaN(parsedWidth) ||
+      isNaN(parsedHeight) ||
+      parsedWidth <= 0 ||
+      parsedHeight <= 0 ||
+      copies < 0 ||
+      copies > totalCopies
+    ) {
+      toast.error("Please enter valid width, height, and copies");
+      return;
+    }
+    
 
     try {
       const formData = new FormData();
@@ -45,24 +67,27 @@ function CreateItem() {
       formData.append("name", itemName);
       formData.append("category", category);
       formData.append("description", description);
-      formData.append("price", price);
+      formData.append("price", parsedPrice.toString());
       formData.append("royalties", royalties);
-      formData.append("size", size);
+      formData.append("height", parsedHeight.toString());
+      formData.append("width", parsedWidth.toString());
       formData.append("copies", copies);
-
+      formData.append("totalCopies", totalCopies);
       const response = await axios.post(
-        "http://localhost:8234/api/nft/create",
+        buildApiUrl("/api/nfts/create"),
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${user.token}`,
           },
         }
       );
 
-      console.log("NFT created successfully:", response.data);
-
-      toast.success("NFT created successfully!");
+      toast.success("NFT created successfully!", {
+        position: "top-center",
+        outClose: 3000,
+      });
 
       // Reset form
       setItemName("");
@@ -70,38 +95,22 @@ function CreateItem() {
       setDescription("");
       setPrice("");
       setRoyalties("");
-      setSize("");
+      setHeight("");
+      setWidth("");
       setCopies(1);
+      setTotalCopies(1);
       setFile(null);
     } catch (error) {
       console.error("Error creating NFT:", error);
-      alert(
+      toast.error(
         `Error creating NFT: ${error.response?.data?.error || error.message}`
       );
     }
   };
 
-  const values = [
-    {
-      icon: Target,
-      title: "Results-Driven",
-      description:
-        "Every strategy is designed with measurable ROI and growth metrics in mind",
-    },
-    {
-      icon: Users,
-      title: "Client-Focused",
-      description: "Your success is our success. We grow when you grow",
-    },
-    {
-      icon: Award,
-      title: "Excellence",
-      description: "We maintain the highest standards in everything we do",
-    },
-  ];
-
   return (
     <div className="pt-16 min-h-screen">
+      <ToastContainer />
       {/* Hero Section */}
       <section className="relative py-20 bg-black text-white overflow-hidden">
         {/* NFTMarket Premium Background */}
@@ -168,9 +177,9 @@ function CreateItem() {
         </div>
       </section>
       {/* Company Story */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-10 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8 items-start">
+          <div className="grid lg:grid-cols-3 gap-8 justify-center">
             {/* Left Profile Card */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
@@ -271,11 +280,11 @@ function CreateItem() {
               </div>
 
               {/* Price, Royalties, Size */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block text-sm mb-2">Price (ETH)</label>
                   <input
-                    type="text"
+                    type="number"
                     className="w-full p-2 rounded bg-[#141a2e] text-white border border-gray-600"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
@@ -284,32 +293,57 @@ function CreateItem() {
                 <div>
                   <label className="block text-sm mb-2">Royalties</label>
                   <input
-                    type="text"
+                    type="number"
                     className="w-full p-2 rounded bg-[#141a2e] text-white border border-gray-600"
                     value={royalties}
                     onChange={(e) => setRoyalties(e.target.value)}
                   />
                 </div>
-                <div>
-                  <label className="block text-sm mb-2">Size</label>
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm mb-2">
+                  Dimensions (Width × Height)
+                </label>
+                <div className="flex items-center gap-2">
                   <input
-                    type="text"
+                    type="number"
                     className="w-full p-2 rounded bg-[#141a2e] text-white border border-gray-600"
-                    value={size}
-                    onChange={(e) => setSize(e.target.value)}
+                    placeholder="Width"
+                    value={width}
+                    onChange={(e) => setWidth(e.target.value)}
+                    min="1"
+                  />
+                  <span className="text-gray-400">×</span>
+                  <input
+                    type="number"
+                    className="w-full p-2 rounded bg-[#141a2e] text-white border border-gray-600"
+                    placeholder="Height"
+                    value={height}
+                    onChange={(e) => setHeight(e.target.value)}
+                    min="1"
                   />
                 </div>
               </div>
-
-              {/* Number of Copies */}
-              <div className="mb-6">
-                <label className="block text-sm mb-2">Number of copies</label>
-                <input
-                  type="number"
-                  className="w-full p-2 rounded bg-[#141a2e] text-white border border-gray-600"
-                  value={copies}
-                  onChange={(e) => setCopies(Number(e.target.value))}
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+               
+                <div className="mb-6">
+                  <label className="block text-sm mb-2">Available copies</label>
+                  <input
+                    type="number"
+                    className="w-full p-2 rounded bg-[#141a2e] text-white border border-gray-600"
+                    value={copies}
+                    onChange={(e) => setCopies(Number(e.target.value))}
+                  />
+                </div>
+                <div className="mb-6">
+                  <label className="block text-sm mb-2">Total copies</label>
+                  <input
+                    type="number"
+                    className="w-full p-2 rounded bg-[#141a2e] text-white border border-gray-600"
+                    value={totalCopies}
+                    onChange={(e) => setTotalCopies(Number(e.target.value))}
+                  />
+                </div>
               </div>
 
               {/* Create Button */}

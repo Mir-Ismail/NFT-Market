@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* PrimeVibeMedia Premium Gradient Background */}
+      {/* NFTMarket Premium Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
       {/* Animated Purple/Gold Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-transparent to-yellow-400/10 animate-pulse"></div>

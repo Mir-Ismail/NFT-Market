@@ -8,64 +8,64 @@ import {
 } from "react-icons/fa";
 
 const ProfileCard = ({
-  name: initialName = "Morgan Wright",
-  role: initialRole = "Creative NFTs Designer",
-  bio: initialBio = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos distinctio labore.",
-  shortId: initialShortId = "Xjo03s-osi6732...",
-  bgImage: initialBgImage = "https://i.ibb.co/q9XMGq3/bg.jpg",
-  profileImage: initialProfileImage = "https://i.ibb.co/JpmYDNf/profile.jpg",
+  name = "User Name",
+  role = "Creative NFTs Designer",
+  bio = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos distinctio labore.",
+  shortId = "Xjo03s-osi6732...",
+  bgImage = "https://i.ibb.co/q9XMGq3/bg.jpg",
+  profileImage = "https://i.ibb.co/JpmYDNf/profile.jpg",
 }) => {
-  const [name, setName] = useState(initialName);
-  const [role, setRole] = useState(initialRole);
-  const [bio, setBio] = useState(initialBio);
-  const [shortId, setShortId] = useState(initialShortId);
-  const [bgImage, setBgImage] = useState(initialBgImage);
-  const [profileImage, setProfileImage] = useState(initialProfileImage);
+  const [localName, setLocalName] = useState(name);
+  const [localRole, setLocalRole] = useState(role);
+  const [localBio, setLocalBio] = useState(bio);
+  const [localShortId, setLocalShortId] = useState(shortId);
+  const [localBgImage, setLocalBgImage] = useState(bgImage);
+  const [localProfileImage, setLocalProfileImage] = useState(profileImage);
 
   // If props change, update state (for dynamic API data)
   useEffect(() => {
-    setName(initialName);
-    setRole(initialRole);
-    setBio(initialBio);
-    setShortId(initialShortId);
-    setBgImage(initialBgImage);
-    setProfileImage(initialProfileImage);
+    setLocalName(name);
+    setLocalRole(role);
+    setLocalBio(bio);
+    setLocalShortId(shortId);
+    setLocalBgImage(bgImage);
+    setLocalProfileImage(profileImage);
   }, [
-    initialName,
-    initialRole,
-    initialBio,
-    initialShortId,
-    initialBgImage,
-    initialProfileImage,
+    name,
+    role,
+    bio,
+    shortId,
+    bgImage,
+    profileImage,
   ]);
 
   return (
-    <div className="lg-6 max-w-sm mx-auto bg-[#0b1120] rounded-2xl overflow-hidden shadow-xl text-white text-center p-6">
+    <div className="bg-[#0b1120] rounded-2xl overflow-hidden shadow-xl text-white text-center p-6">
       <div className="relative">
         <img
-          src={bgImage}
+          src={localBgImage}
           alt="Background"
           className="w-full h-40 object-cover rounded-t-2xl"
         />
         <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
           <img
             className="w-16 h-16 rounded-full border-4 border-[#0b1120]"
-            src={profileImage}
+            src={localProfileImage}
             alt="Profile"
           />
         </div>
       </div>
 
       <div className="mt-10">
-        <h2 className="text-lg font-semibold">{name}</h2>
-        <p className="text-sm text-purple-400">{role}</p>
-        <p className="text-sm text-gray-400 mt-3">{bio}</p>
+        <h2 className="text-lg font-semibold">{localName}</h2>
+        <p className="text-sm text-purple-400">{localRole}</p>
+        <p className="text-sm text-gray-400 mt-3">{localBio}</p>
 
         <div className="flex items-center bg-[#141a2e] rounded-lg px-3 py-2 mt-4">
           <input
             type="text"
-            value={shortId}
-            onChange={(e) => setShortId(e.target.value)}
+            value={localShortId}
+            onChange={(e) => setLocalShortId(e.target.value)}
             className="flex-1 bg-transparent text-white border-none outline-none"
             placeholder="Enter item name"
           />

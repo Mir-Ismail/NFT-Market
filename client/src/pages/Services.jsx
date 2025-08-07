@@ -1,6 +1,7 @@
-import NewArrivals from "../components/sections/NewArrivals";
+// import ServicesSection from "../components/sections/ServicesSection";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
+import CTASection from "../components/sections/CTASection";
 
 export default function Services() {
   return (
@@ -47,9 +48,9 @@ export default function Services() {
         </div>
       </section>
       {/* Services Grid */}
-      <NewArrivals />
+      <CTASection />
       {/* Why Choose Us */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-10 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -166,7 +167,7 @@ export default function Services() {
         </div>
       </section>
       {/* CTA Section */}
-      <section className="py-20 bg-slate-900 text-white">
+      <section className="py-10 bg-slate-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

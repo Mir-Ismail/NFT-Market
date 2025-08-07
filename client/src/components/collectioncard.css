@@ -15,6 +15,7 @@
   width: 6rem;
   background-color: var(--bg-card);
   border-radius: 1rem;
+  cursor: pointer;
 }
 
 .card:hover {

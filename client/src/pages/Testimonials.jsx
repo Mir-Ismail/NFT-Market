@@ -31,7 +31,7 @@ export default function Testimonials() {
     <div className="pt-16 min-h-screen">
       {/* Hero Section */}
       <section className="relative py-20 bg-black text-white overflow-hidden">
-        {/* NFTMarket Premium Background */}
+        {/* PrimeVibeMedia Premium Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-transparent to-yellow-400/10 animate-pulse"></div>
         
@@ -70,7 +70,7 @@ export default function Testimonials() {
       </section>
 
       {/* Additional Testimonials */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-10 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -127,7 +127,7 @@ export default function Testimonials() {
       </section>
 
       {/* Results Summary */}
-      <section className="py-20 bg-slate-900 text-white">
+      <section className="py-10 bg-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

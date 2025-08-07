@@ -31,9 +31,9 @@ export default function CollectionSection() {
   return (
     <section className="py-20 bg-[#0D0D2B]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h3 className="text-pink-400 font-semibold mb-2">
+        <h2 className="bg-gradient-to-r font-bold text-2xl from-purple-400 via-pink-500 to-yellow-400 bg-clip-text text-transparent">
           Our Top Collections
-        </h3>
+        </h2>
         <h2 className="text-4xl font-bold text-white mb-4">
           Popular Collections
         </h2>
@@ -41,6 +41,7 @@ export default function CollectionSection() {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis
           accumsan nisi Ut ut felis congue nisl hendrerit commodo.
         </p>
+       
         <div className="flex flex-wrap justify-center gap-4">
           {collections.map((col, idx) => (
             <CollectionCard

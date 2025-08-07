@@ -17,7 +17,7 @@ export default function Footer() {
             {/* Contact Info */}
             <div className="space-y-3 text-sm text-gray-300">
               <div className="flex items-center">
-                <span>hello@nftvibes.com</span>
+                <span>hello@primevibes.com</span>
               </div>
               <div className="flex items-center">
                 <span>+1 (555) 123-4567</span>
@@ -81,7 +81,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/team"
+                  href="/author"
                   className="hover:text-purple-400 hover:translate-x-1 transition-all duration-300 transform inline-block"
                 >
                   Our Team

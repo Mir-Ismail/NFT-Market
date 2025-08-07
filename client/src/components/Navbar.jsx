@@ -1,12 +1,29 @@
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, ChevronDown, ChevronRight, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "../context/AuthContext";
+import ProfileModal from "./ProfileModal";
 
 export default function Navbar() {
-  const [location] = useLocation();
+  const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
+  const { user, isAuthenticated } = useAuth();
+
+  // Helper function to get user ID safely
+  const getUserID = () => {
+    if (!user) return null;
+    return user._id || null;
+  };
+
+  // Helper function to check if user has specific role
+  const hasRole = (roles) => {
+    if (!user || !user.role) return false;
+    return Array.isArray(roles)
+      ? roles.includes(user.role)
+      : user.role === roles;
+  };
 
   const navigation = [
     {
@@ -22,25 +39,50 @@ export default function Navbar() {
       href: "/services",
     },
     {
-      name: "Team",
-      href: "/team",
-    },
-    {
-      name: "Testimonials",
-      href: "/testimonials",
-    },
-    {
       name: "Contact",
       href: "/contact",
     },
-    {
-      name: "Create Item",
-      href: "/createitem",
-    },
-    {
-      name: "Live Auction",
-      href: "/discover/live-auction",
-    },
+
+    ...(!isAuthenticated ? [{ name: "Login", href: "/login" }] : []),
+    ...(isAuthenticated
+      ? [
+          // Author page - Admin only
+          ...(hasRole("admin")
+            ? [
+                {
+                  name: "Author",
+                  href: "/author",
+                },
+              ]
+            : []),
+
+          // Profile - Sellers and Admins only (buyers can access via item details)
+          ...(hasRole(["seller"])
+            ? [
+                {
+                  name: "Profile",
+                  href: `/author-profile/${getUserID()}`,
+                },
+              ]
+            : []),
+
+          // Create Item - Sellers and Admins only
+          ...(hasRole(["seller"])
+            ? [
+                {
+                  name: "Create Item",
+                  href: "/createitem",
+                },
+              ]
+            : []),
+
+          // New Arrivals - All authenticated users
+          {
+            name: "New Arrivals",
+            href: "/arrivals",
+          },
+        ]
+      : []),
   ];
 
   const toggleSubmenu = (name) => {
@@ -51,9 +93,9 @@ export default function Navbar() {
     <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-md z-50 border-b border-purple-500/20 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* Part 1: Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-3">
+            <Link to="/" className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-xl">N</span>
               </div>
@@ -65,8 +107,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          {/* Desktop Navigation */}
+          {/* Part 2: Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-1">
               {navigation.map((item) => (
@@ -77,9 +118,9 @@ export default function Navbar() {
                     className="flex items-center"
                   >
                     <Link
-                      href={item.href}
+                      to={item.href}
                       className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                        location === item.href
+                        location.pathname === item.href
                           ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg"
                           : "text-white hover:text-purple-300 hover:bg-purple-500/20"
                       }`}
@@ -112,7 +153,7 @@ export default function Navbar() {
                         {item.submenu.map((subItem) => (
                           <Link
                             key={subItem.name}
-                            href={subItem.href}
+                            to={subItem.href}
                             className="block px-4 py-2 text-sm text-white hover:bg-purple-500/20 hover:text-purple-300 transition-colors duration-200"
                           >
                             {subItem.name}
@@ -126,27 +167,56 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Link href="/connect">
-              <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/50 font-semibold transform hover:-translate-y-1">
-                Connect Wallet
-              </button>
-            </Link>
-          </div>
+          {/* Part 3: Profile Section */}
+          <div className="flex items-center space-x-4">
+            {/* Connect Wallet Button - Show when not authenticated */}
+            {!isAuthenticated && (
+              <div className="hidden md:block">
+                <Link to="/login">
+                  <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/50 font-semibold transform hover:-translate-y-1">
+                    Connect Wallet
+                  </button>
+                </Link>
+              </div>
+            )}
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-white hover:text-purple-300 focus:outline-none transition-colors duration-300"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
+            {/* Profile Section - Show when authenticated */}
+            {isAuthenticated && (
+              <div className="hidden md:flex items-center space-x-3">
+                <ProfileModal>
+                  <div className="flex items-center space-x-3 cursor-pointer hover:scale-105 transition-transform duration-300">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
+                      {user?.pic ? (
+                        <img
+                          src={user.pic}
+                          alt={user.name}
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                      ) : (
+                        <User className="w-5 h-5 text-white" />
+                      )}
+                    </div>
+                    <span className="text-white font-medium text-sm">
+                      {user?.name || user?.email}
+                    </span>
+                  </div>
+                </ProfileModal>
+              </div>
+            )}
+
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-white hover:text-purple-300 focus:outline-none transition-colors duration-300"
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -165,10 +235,10 @@ export default function Navbar() {
                 <div key={item.name}>
                   <div className="flex items-center justify-between">
                     <Link
-                      href={item.href}
+                      to={item.href}
                       onClick={() => !item.submenu && setMobileMenuOpen(false)}
                       className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-300 w-full ${
-                        location === item.href
+                        location.pathname === item.href
                           ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg"
                           : "text-white hover:text-purple-300 hover:bg-purple-500/20"
                       }`}
@@ -199,7 +269,7 @@ export default function Navbar() {
                       {item.submenu.map((subItem) => (
                         <Link
                           key={subItem.name}
-                          href={subItem.href}
+                          to={subItem.href}
                           onClick={() => setMobileMenuOpen(false)}
                           className="block px-3 py-2 rounded-md text-sm font-medium text-purple-200 hover:bg-purple-500/20 hover:text-white transition-colors"
                         >
@@ -210,11 +280,36 @@ export default function Navbar() {
                   )}
                 </div>
               ))}
-              <Link href="/connect" onClick={() => setMobileMenuOpen(false)}>
-                <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-2 rounded-lg mt-2 font-medium hover:from-purple-700 hover:to-pink-700 transition-all duration-300">
-                  Connect Wallet
-                </button>
-              </Link>
+
+              {/* Mobile Profile Section */}
+              {isAuthenticated ? (
+                <div className="pt-4 border-t border-purple-500/20">
+                  <ProfileModal>
+                    <div className="flex items-center space-x-3 px-3 py-2 rounded-md text-white hover:bg-purple-500/20 transition-colors">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
+                        {user?.pic ? (
+                          <img
+                            src={user.pic}
+                            alt={user.name}
+                            className="w-8 h-8 rounded-full object-cover"
+                          />
+                        ) : (
+                          <User className="w-4 h-4 text-white" />
+                        )}
+                      </div>
+                      <span className="text-sm font-medium">
+                        {user?.name || user?.email}
+                      </span>
+                    </div>
+                  </ProfileModal>
+                </div>
+              ) : (
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                  <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-2 rounded-lg mt-2 font-medium hover:from-purple-700 hover:to-pink-700 transition-all duration-300">
+                    Connect Wallet
+                  </button>
+                </Link>
+              )}
             </div>
           </motion.div>
         )}

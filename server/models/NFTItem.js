@@ -3,22 +3,8 @@ const { Schema } = mongoose;
 
 const nftItemSchema = new Schema({
   file: {
-    originalName: { type: String, required: true },
-    storagePath: { type: String, required: true },
-    mimeType: {
-      type: String,
-      required: true,
-      enum: [
-        "image/png",
-        "image/gif",
-        "image/webp",
-        "image/jpeg",
-        "image/jpg",
-        "video/mp4",
-        "audio/mpeg",
-      ],
-    },
-    size: { type: Number, required: true },
+    type: Schema.Types.Mixed,
+    required: true,
   },
 
   name: { type: String, required: true },
@@ -38,10 +24,15 @@ const nftItemSchema = new Schema({
   description: { type: String },
   price: { type: Number, required: true },
   royalties: { type: Number, default: 0 },
-  size: { type: String },
+  size: { type: String, required: true },
   copies: { type: Number, default: 1 },
+  totalCopies: { type: Number, default: 1 },
 
-  creator: { type: String },
+  author: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User',
+    required: true 
+  },
 
   createdAt: { type: Date, default: Date.now },
 });
